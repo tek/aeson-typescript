@@ -262,7 +262,7 @@ handleConstructor (ExtraTypeScriptOptions {..}) options (DatatypeInfo {..}) gene
          lift [|$(TH.stringE interfaceName) <> $(return brackets)|]
      | otherwise -> do
          tagField :: [Exp] <- lift $ case sumEncoding options of
-           TaggedObject tagFieldName _ -> (: []) <$> [|TSField False $(TH.stringE tagFieldName) $(TH.stringE [i|"#{constructorNameToUse options ci}"|]) Nothing|]
+           TaggedObject tagFieldName _ -> (: []) <$> [|TSField False $(TH.stringE tagFieldName) $(TH.stringE "blah") Nothing|]
            _ -> return []
 
          tsFields <- getTSFields
@@ -272,7 +272,7 @@ handleConstructor (ExtraTypeScriptOptions {..}) options (DatatypeInfo {..}) gene
          lift [|$(TH.stringE interfaceName) <> $(return brackets)|]
 
   where
-    stringEncoding = lift $ TH.stringE [i|"#{(constructorTagModifier options) $ getTypeName (constructorName ci)}"|]
+    stringEncoding = lift $ TH.stringE "blah"
 
     writeSingleConstructorEncoding = if
       | constructorVariant ci == NormalConstructor -> do

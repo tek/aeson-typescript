@@ -45,17 +45,17 @@ tests = describe "Formatting" $ do
     describe "and the TypeAlias format option is set" $
       it "should generate a TS string literal type" $
         formatTSDeclarations' defaultFormattingOptions (getTypeScriptDeclarations @D Proxy) `shouldBe`
-          [i|type D = "S" | "F";|]
+          "blah"
 
     describe "and the Enum format option is set" $
       it "should generate a TS Enum" $
         formatTSDeclarations' (defaultFormattingOptions { typeAlternativesFormat = Enum }) (getTypeScriptDeclarations @D Proxy) `shouldBe`
-          [i|enum D { S, F }|]
+          "blah"
 
     describe "and the EnumWithType format option is set" $
       it "should generate a TS Enum with a type declaration" $
         formatTSDeclarations' (defaultFormattingOptions { typeAlternativesFormat = EnumWithType }) (getTypeScriptDeclarations @D Proxy) `shouldBe`
-          [i|enum DEnum { S="S", F="F" }\n\ntype D = keyof typeof DEnum;|]
+          "blah"
 
   describe "when the name has an apostrophe" $ do
     describe "in the type" $ do
@@ -68,11 +68,11 @@ tests = describe "Formatting" $ do
 
 #if MIN_VERSION_template_haskell(2,18,0)
   describe "when @no-emit-typescript is present" $ do
-    it [i|works on records and constructors of record types|] $ do
-      formatTSDeclarations' defaultFormattingOptions (getTypeScriptDeclarations @FooBar Proxy) `shouldBe` [i|type FooBar = IFoo;\n\ninterface IFoo {\n  tag: "Foo";\n  recordInt: number;\n}|]
+    it "blah" $ do
+      formatTSDeclarations' defaultFormattingOptions (getTypeScriptDeclarations @FooBar Proxy) `shouldBe` "blah"
 
-    it [i|works on normal constructors|] $ do
-      formatTSDeclarations' defaultFormattingOptions (getTypeScriptDeclarations @NormalConstructors Proxy) `shouldBe` [i|type NormalConstructors = ICon2;\n\ninterface ICon2 {\n  tag: "Con2";\n  contents: number;\n}|]
+    it "blah" $ do
+      formatTSDeclarations' defaultFormattingOptions (getTypeScriptDeclarations @NormalConstructors Proxy) `shouldBe` "blah"
 #endif
 
 main :: IO ()

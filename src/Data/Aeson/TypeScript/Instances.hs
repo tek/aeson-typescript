@@ -111,7 +111,7 @@ instance {-# OVERLAPPING #-} TypeScript [Char] where
   getTypeScriptType _ = "string"
 
 instance (TypeScript a, TypeScript b) => TypeScript (Either a b) where
-  getTypeScriptType _ = [i|Either<#{getTypeScriptType (Proxy :: Proxy a)}, #{getTypeScriptType (Proxy :: Proxy b)}>|]
+  getTypeScriptType _ = "blah"
   getTypeScriptDeclarations _ = [TSTypeAlternatives "Either" ["T1", "T2"] ["Left<T1>", "Right<T2>"] Nothing
                                , TSInterfaceDeclaration "Left" ["T"] [TSField False "Left" "T" Nothing] Nothing
                                , TSInterfaceDeclaration "Right" ["T"] [TSField False "Right" "T" Nothing] Nothing
@@ -121,20 +121,20 @@ instance (TypeScript a, TypeScript b) => TypeScript (Either a b) where
                            ]
 
 instance (TypeScript a, TypeScript b) => TypeScript (a, b) where
-  getTypeScriptType _ = [i|[#{getTypeScriptType (Proxy :: Proxy a)}, #{getTypeScriptType (Proxy :: Proxy b)}]|]
+  getTypeScriptType _ = "blah"
   getParentTypes _ = L.nub [ (TSType (Proxy :: Proxy a))
                            , (TSType (Proxy :: Proxy b))
                            ]
 
 instance (TypeScript a, TypeScript b, TypeScript c) => TypeScript (a, b, c) where
-  getTypeScriptType _ = [i|[#{getTypeScriptType (Proxy :: Proxy a)}, #{getTypeScriptType (Proxy :: Proxy b)}, #{getTypeScriptType (Proxy :: Proxy c)}]|]
+  getTypeScriptType _ = "blah"
   getParentTypes _ = L.nub [ (TSType (Proxy :: Proxy a))
                            , (TSType (Proxy :: Proxy b))
                            , (TSType (Proxy :: Proxy c))
                            ]
 
 instance (TypeScript a, TypeScript b, TypeScript c, TypeScript d) => TypeScript (a, b, c, d) where
-  getTypeScriptType _ = [i|[#{getTypeScriptType (Proxy :: Proxy a)}, #{getTypeScriptType (Proxy :: Proxy b)}, #{getTypeScriptType (Proxy :: Proxy c)}, #{getTypeScriptType (Proxy :: Proxy d)}]|]
+  getTypeScriptType _ = "blah"
   getParentTypes _ = L.nub [ (TSType (Proxy :: Proxy a))
                            , (TSType (Proxy :: Proxy b))
                            , (TSType (Proxy :: Proxy c))
@@ -176,12 +176,12 @@ instance (TypeScript a, TypeScript b) => TypeScript (Map a b) where
   getParentTypes _ = [TSType (Proxy :: Proxy a), TSType (Proxy :: Proxy b)]
 
 instance (TypeScript a, TypeScript b) => TypeScript (HashMap a b) where
-  getTypeScriptType _ = [i|{[k in #{getTypeScriptKeyType (Proxy :: Proxy a)}]?: #{getTypeScriptType (Proxy :: Proxy b)}}|]
+  getTypeScriptType _ = "blah"
   getParentTypes _ = L.nub [TSType (Proxy :: Proxy a), TSType (Proxy :: Proxy b)]
 
 #if MIN_VERSION_aeson(2,0,0)
 instance (TypeScript a) => TypeScript (A.KeyMap a) where
-  getTypeScriptType _ = [i|{[k: string]: #{getTypeScriptType (Proxy :: Proxy a)}}|]
+  getTypeScriptType _ = "blah"
   getParentTypes _ = L.nub [TSType (Proxy :: Proxy a)]
 #endif
 

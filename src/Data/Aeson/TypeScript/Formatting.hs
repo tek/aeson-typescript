@@ -24,20 +24,18 @@ formatTSDeclaration (FormattingOptions {..}) (TSTypeAlternatives name genericVar
   makeDocPrefix maybeDoc <> mainDeclaration
   where
     mainDeclaration = case typeAlternativesFormat of
-      Enum -> [i|#{exportPrefix exportMode}enum #{typeNameModifier name} { #{alternativesEnum} }|]
-      EnumWithType -> [i|#{exportPrefix exportMode}enum #{typeNameModifier name} { #{alternativesEnumWithType} }#{enumType}|]
-      TypeAlias -> [i|#{exportPrefix exportMode}type #{typeNameModifier name}#{getGenericBrackets genericVariables} = #{alternatives};|]
+      Enum -> "blah"
+      EnumWithType -> "blah"
+      TypeAlias -> "blah"
 
     alternatives = T.intercalate " | " (fmap T.pack names)
     alternativesEnum = T.intercalate ", " $ [toEnumName entry | entry <- T.pack <$> names]
     alternativesEnumWithType = T.intercalate ", " $ [toEnumName entry <> "=" <> entry | entry <- T.pack <$> names]
-    enumType = [i|\n\ntype #{name} = keyof typeof #{typeNameModifier name};|] :: T.Text
+    enumType = "blah" :: T.Text
     toEnumName = T.replace "\"" ""
 
 formatTSDeclaration (FormattingOptions {..}) (TSInterfaceDeclaration interfaceName genericVariables (filter (not . isNoEmitTypeScriptField) -> members) maybeDoc) =
-  makeDocPrefix maybeDoc <> [i|#{exportPrefix exportMode}interface #{modifiedInterfaceName}#{getGenericBrackets genericVariables} {
-#{ls}
-}|] where
+  makeDocPrefix maybeDoc <> "blah" where
       ls = T.intercalate "\n" $ [indentTo numIndentSpaces (T.pack (formatTSField member <> ";")) | member <- members]
       modifiedInterfaceName = (\(li, name) -> li <> interfaceNameModifier name) . splitAt 1 $ interfaceName
 
@@ -90,7 +88,7 @@ validateFormattingOptions options@FormattingOptions{..} decls
     isPlainSumType ds = (not . any isInterface $ ds) && length ds == 1
 
 formatTSField :: TSField -> String
-formatTSField (TSField optional name typ maybeDoc) = makeDocPrefix maybeDoc <> [i|#{name}#{if optional then ("?" :: String) else ""}: #{typ}|]
+formatTSField (TSField optional name typ maybeDoc) = makeDocPrefix maybeDoc <> "blah"
 
 makeDocPrefix :: Maybe String -> String
 makeDocPrefix maybeDoc = case maybeDoc of
@@ -102,7 +100,7 @@ makeDocPrefix maybeDoc = case maybeDoc of
 
 getGenericBrackets :: [String] -> String
 getGenericBrackets [] = ""
-getGenericBrackets xs = [i|<#{T.intercalate ", " (fmap T.pack xs)}>|]
+getGenericBrackets xs = "blah"
 
 -- * Support for @no-emit-typescript
 

@@ -21,7 +21,7 @@ $(deriveTypeScript A.defaultOptions ''OneField)
 
 tests :: SpecWith ()
 tests = describe "getDoc tests" $ do
-  it [i|Works with a simple record type|] $ do
+  it "blah" $ do
     (getTypeScriptDeclarations (Proxy :: Proxy OneField)) `shouldBe` ([
       TSTypeAlternatives "OneField" [] ["IOneField"] (Just "OneField type doc")
       , TSInterfaceDeclaration "IOneField" [] [

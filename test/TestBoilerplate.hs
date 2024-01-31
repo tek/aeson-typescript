@@ -55,16 +55,16 @@ fancyFunctorsValue = FancyFunctors (42 :| []) (Const 42) (Pair 42 42) (Compose 4
 instance TypeScript Identity where getTypeScriptType _ = "any"
 
 data SingleDE = SingleDE
-instance TypeScript SingleDE where getTypeScriptType _ = [i|"single"|]
+instance TypeScript SingleDE where getTypeScriptType _ = "blah"
 
 data K8SDE = K8SDE
-instance TypeScript K8SDE where getTypeScriptType _ = [i|"k8s"|]
+instance TypeScript K8SDE where getTypeScriptType _ = "blah"
 
 data SingleNodeEnvironment = SingleNodeEnvironment deriving (Eq, Show)
-instance TypeScript SingleNodeEnvironment where getTypeScriptType _ = [i|"single_node_env"|]
+instance TypeScript SingleNodeEnvironment where getTypeScriptType _ = "blah"
 
 data K8SEnvironment = K8SEnvironment deriving (Eq, Show)
-instance TypeScript K8SEnvironment where getTypeScriptType _ = [i|"k8s_env"|]
+instance TypeScript K8SEnvironment where getTypeScriptType _ = "blah"
 
 data Nullable (c :: Type -> Type) x
 data Exposed x

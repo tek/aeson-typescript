@@ -37,7 +37,7 @@ $(deriveTypeScript' A.defaultOptions ''Simple (defaultExtraTypeScriptOptions { t
 tests :: SpecWith ()
 tests = describe "Closed type families" $ do
   describe "simple newtype" $ do
-    it [i|makes the declaration and types correctly|] $ do
+    it "blah" $ do
       (getTypeScriptDeclarationsRecursively (Proxy :: Proxy (Simple T))) `shouldBe` ([
         TSInterfaceDeclaration "DeployEnvironment2" [] [
           TSField False "\"k8s_env\"" "\"k8s\"" Nothing
@@ -49,7 +49,7 @@ tests = describe "Closed type families" $ do
         ])
 
   describe "Complicated Beam-like user type" $ do
-    it [i|makes the declaration and types correctly|] $ do
+    it "blah" $ do
       (getTypeScriptDeclarations (Proxy :: Proxy (UserT T Identity))) `shouldBe` ([
         TSTypeAlternatives "UserT" ["T extends keyof DeployEnvironment"] ["IUser<T>"] Nothing
         , TSInterfaceDeclaration "IUser" ["T extends keyof DeployEnvironment"] [
@@ -59,7 +59,7 @@ tests = describe "Closed type families" $ do
             ] Nothing
         ])
 
-    it [i|get the declarations recursively|] $ do
+    it "blah" $ do
       (getTypeScriptDeclarationsRecursively (Proxy :: Proxy (UserT T Identity))) `shouldBe` ([
         TSInterfaceDeclaration "DeployEnvironment" [] [
           TSField False "\"k8s_env\"" "\"k8s\"" Nothing

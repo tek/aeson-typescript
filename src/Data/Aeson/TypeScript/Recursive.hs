@@ -70,7 +70,7 @@ deriveInstanceIfNecessary name deriveFn = do
     True -> return ()
     False -> do
       (lift $ nothingOnFail (deriveFn name)) >>= \case
-        Nothing -> lift $ reportWarning [i|Failed to derive decls for name '#{name}'|]
+        Nothing -> lift $ reportWarning "blah"
         Just x -> tell x
 
 doesTypeScriptInstanceExist :: Name -> Q Bool
@@ -94,7 +94,7 @@ getAllParentTypes name pruneFn = reverse <$> execStateT (getAllParentTypes' name
       Just True -> return ()
       Just False -> (lift $ nothingOnFail (reifyDatatype nm)) >>= \case
         Nothing -> do
-          lift $ reportWarning [i|Failed to reify: '#{nm}'|]
+          lift $ reportWarning "blah"
         Just (DatatypeInfo {..}) -> do
           let parentTypes = mconcat $ fmap constructorFields datatypeCons
 
